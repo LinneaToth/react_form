@@ -1,0 +1,50 @@
+/* custom.scss */
+
+// $primary: #ffc600 !default;
+// $secondary: #d33a3c !default;
+// $success: #3ad355 !default;
+// $info: #485f7e !default;
+// $warning: #d33a3a !default;
+// $danger: green !default;
+// $light: #a7aeae !default;
+// $dark: #1b2430 !default;
+
+$primary: #82cfe2; // Vibrant blue for key CTAs
+$secondary: #bc5ed1; // Confident purple for accents
+$success: #06d6a0; // Mint green for positive actions/status
+$info: #118ab2; // Calm and readable blue for informational content
+$warning: #ffbe0b; // Soft amber for alerts (not too aggressive)
+$danger: #ef476f; // Strong but modern red/pink tone for errors
+$light: #f4f7fa; // Clean light gray for background
+$dark: #15230b; // Deep navy/gray for body text, headers, backgrounds
+
+/* import the necessary Bootstrap files */
+@import "bootstrap";
+
+body {
+  height: 100%;
+  background-image: url("../assets/img/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  overflow: 0;
+}
+
+main {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+}
+
+.rounded-4 {
+  border-radius: 3rem !important;
+}
+
+.display-4 {
+  font-size: 1.5rem !important;
+}
