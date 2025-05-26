@@ -1,27 +1,59 @@
 import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
+import { formSchema } from "../Validations/FormValidation";
 
-export default function Submit({ handleSubmit }) {
+export default function Submit({ formValues, setFormValues, defaultForm }) {
+  const handleSubmit = function () {
+    setFormValues(defaultForm);
+    localStorage.clear();
+  };
+
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isValid, setIsValid] = useState(false);
+  const [validationErrors, setValidationErrors] = useState([]);
 
-  const sendDelay = function () {
+  const validateForm = async () => {
+    try {
+      const result = await formSchema.validate(formValues, {
+        abortEarly: false,
+      });
+      // console.log(result);
+      return result;
+    } catch (e) {
+      console.log(e.errors);
+      return e.errors;
+    }
+  };
+
+  const handleSubmitBtn = async function () {
+    console.log(formValues);
     setShow(true);
-    handleSubmit();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    const result = await validateForm();
+
+    if (!Array.isArray(result)) {
+      handleSubmit();
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
+    }
+    setIsLoading(false);
+    setValidationErrors(result);
   };
 
   return (
     <>
-      <Button onClick={sendDelay}>Submit Application</Button>
+      <Button onClick={handleSubmitBtn}>Submit Application</Button>
       <Modal show={show} onHide={() => setShow(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>
-            {isLoading
+            {isLoading && isValid
               ? "Sending your application ..."
-              : "Thank you for your application!"}{" "}
+              : !isLoading && isValid
+              ? "Thank you for your application!"
+              : !isValid
+              ? "Your application was not submitted"
+              : ""}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -30,8 +62,18 @@ export default function Submit({ handleSubmit }) {
               <div className="spinner-border w-full" role="status">
                 <span className="sr-only"></span>
               </div>
-            ) : (
+            ) : isValid ? (
               "Your application has been successfully submitted!"
+            ) : (
+              <ul className="list-group">
+                {validationErrors.map((error) => {
+                  return (
+                    <li className="list-group-item text-danger border-0">
+                      {error}
+                    </li>
+                  );
+                })}{" "}
+              </ul>
             )}
           </div>
         </Modal.Body>

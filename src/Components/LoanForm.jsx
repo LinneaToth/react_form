@@ -48,12 +48,6 @@ export default function LoanForm() {
     localStorage.setItem("loanForm", JSON.stringify(formValues));
   };
 
-  const handleSubmit = function () {
-    console.log(formValues);
-    setFormValues(defaultForm);
-    localStorage.clear();
-  };
-
   const nextStep = () => {
     step < 3 && setStep((step) => step + 1);
   };
@@ -76,94 +70,100 @@ export default function LoanForm() {
           ""
         )}
       </h2>
-      {step === 1 && (
-        <>
-          <Input
-            inputType="text"
-            name="formName"
-            placeholder="Full name"
-            description="Full name"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}
-          />
-          <Input
-            inputType="text"
-            name="phoneNumber"
-            placeholder="Phone Number"
-            description="Phone number"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}
-          />
-          <Input
-            inputType="number"
-            name="age"
-            description="Age"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}
-          />
-          <Input
-            inputType="checkbox"
-            name="isEmployed"
-            description="I am currently employed"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}
-          />
-        </>
-      )}
-      {step === 2 && (
-        <>
-          <Select
-            options={salaryOptions}
-            name="salary"
-            placeholder="Choose range"
-            description="Monthly income"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}></Select>
+      <form className="container d-flex flex-column h-100 gap-3 p-0">
+        {step === 1 && (
+          <>
+            <Input
+              inputType="text"
+              name="formName"
+              placeholder="Full name"
+              description="Full name"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}
+            />
+            <Input
+              inputType="text"
+              name="phoneNumber"
+              placeholder="Phone Number"
+              description="Phone number"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}
+            />
+            <Input
+              inputType="number"
+              name="age"
+              description="Age"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}
+            />
+            <Input
+              inputType="checkbox"
+              name="isEmployed"
+              description="I am currently employed"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}
+            />
+          </>
+        )}
+        {step === 2 && (
+          <>
+            <Select
+              options={salaryOptions}
+              name="salary"
+              placeholder="Choose range"
+              description="Monthly income"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}></Select>
 
-          <Input
-            inputType="number"
-            name="amount"
-            description="Requested amount"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}
-          />
-          <Input
-            inputType="text"
-            name="purpose"
-            placeholder="New graphics card?"
-            description="Purpose of loan"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}
-          />
-          <Input
-            inputType="number"
-            name="repayment"
-            description="Repayment period in years"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}
-          />
-        </>
-      )}
-      {step === 3 && (
-        <>
-          <Textarea
-            name="comments"
-            description="Enter any additional information regarding your application"
-            handleChange={handleInputChange}
-            handleBlur={handleBlur}
-            formValues={formValues}
-          />
-          <Submit handleSubmit={handleSubmit} />
-        </>
-      )}
+            <Input
+              inputType="number"
+              name="amount"
+              description="Requested amount"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}
+            />
+            <Input
+              inputType="text"
+              name="purpose"
+              placeholder="New graphics card?"
+              description="Purpose of loan"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}
+            />
+            <Input
+              inputType="number"
+              name="repayment"
+              description="Repayment period in years"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}
+            />
+          </>
+        )}
+        {step === 3 && (
+          <>
+            <Textarea
+              name="comments"
+              description="Enter any additional information regarding your application"
+              handleChange={handleInputChange}
+              handleBlur={handleBlur}
+              formValues={formValues}
+            />
+            <Submit
+              setFormValues={setFormValues}
+              formValues={formValues}
+              defaultForm={defaultForm}
+            />
+          </>
+        )}
+      </form>
       <nav className="container w-100 d-flex justify-content-between mt-auto">
         <button
           className="btn btn-secondary btn-lg text-white"
