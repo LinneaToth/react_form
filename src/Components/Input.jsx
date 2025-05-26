@@ -3,19 +3,32 @@ export default function Input({
   description,
   placeholder,
   inputType,
-  onChange,
-  setValues,
-  values,
+  handleChange,
+  handleBlur,
+  formValues,
 }) {
   return (
     <div className="form-group">
-      <label htmlFor={name}>{description}</label>
+      <label className="form-check-label " htmlFor={name}>
+        {description}
+      </label>
       <input
-        className={`rounded-3 border-0 ${
-          inputType !== "checkbox" && "form-control"
-        }`}
+        onBlur={handleBlur}
+        onChange={(e) => {
+          inputType === "checkbox"
+            ? handleChange(name, !formValues[name])
+            : handleChange(name, e.target.value);
+        }}
+        checked={inputType === "checkbox" ? formValues[name] : undefined}
+        value={formValues[name]}
+        min="0"
+        step={name === "amount" ? "100" : undefined}
+        className={`mt-1 rounded-3 border-0  ${
+          inputType !== "checkbox" ? "form-control" : "form-check-input ms-3"
+        } `}
         type={inputType}
         name={name}
+        placeholder={placeholder}
       />
     </div>
   );
