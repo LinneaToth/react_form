@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export default function Select({
   options,
   name,
@@ -19,7 +21,11 @@ export default function Select({
         }}>
         <option value="">{placeholder}</option>
         {options.map((option) => {
-          return <option value={option}>{option}</option>;
+          return (
+            <option key={uuidv4()} value={option}>
+              {option}
+            </option>
+          );
         })}
       </select>
     </div>

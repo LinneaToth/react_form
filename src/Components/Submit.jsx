@@ -1,9 +1,11 @@
 import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { formSchema } from "../Validations/FormValidation";
 
 export default function Submit({ formValues, setFormValues, defaultForm }) {
   const handleSubmit = function () {
+    console.log(formValues);
     setFormValues(defaultForm);
     localStorage.clear();
   };
@@ -71,7 +73,9 @@ export default function Submit({ formValues, setFormValues, defaultForm }) {
                 <ul className="list-group">
                   {validationErrors.map((error) => {
                     return (
-                      <li className="list-group-item text-danger border-0">
+                      <li
+                        key={uuidv4()}
+                        className="list-group-item text-danger border-0">
                         {error}
                       </li>
                     );

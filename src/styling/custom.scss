@@ -69,3 +69,9 @@ main {
 .display-3 {
   font-size: 1.5rem !important;
 }
+
+@media only screen and (max-width: 600px) {
+  .container {
+    border-radius: 0 !important;
+  }
+}
