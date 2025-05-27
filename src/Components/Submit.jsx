@@ -18,7 +18,6 @@ export default function Submit({ formValues, setFormValues, defaultForm }) {
       const result = await formSchema.validate(formValues, {
         abortEarly: false,
       });
-      // console.log(result);
       return result;
     } catch (e) {
       console.log(e.errors);
@@ -27,18 +26,21 @@ export default function Submit({ formValues, setFormValues, defaultForm }) {
   };
 
   const handleSubmitBtn = async function () {
-    console.log(formValues);
     setShow(true);
     const result = await validateForm();
+    const hasErrors = Array.isArray(result);
 
-    if (!Array.isArray(result)) {
+    if (!hasErrors) {
       handleSubmit();
+      setIsValid(true);
       setTimeout(() => {
         setIsLoading(false);
       }, 1500);
+    } else {
+      setValidationErrors(result);
+      setIsLoading(false);
+      setIsValid(false);
     }
-    setIsLoading(false);
-    setValidationErrors(result);
   };
 
   return (
@@ -65,15 +67,17 @@ export default function Submit({ formValues, setFormValues, defaultForm }) {
             ) : isValid ? (
               "Your application has been successfully submitted!"
             ) : (
-              <ul className="list-group">
-                {validationErrors.map((error) => {
-                  return (
-                    <li className="list-group-item text-danger border-0">
-                      {error}
-                    </li>
-                  );
-                })}{" "}
-              </ul>
+              Array.isArray(validationErrors) && (
+                <ul className="list-group">
+                  {validationErrors.map((error) => {
+                    return (
+                      <li className="list-group-item text-danger border-0">
+                        {error}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )
             )}
           </div>
         </Modal.Body>
