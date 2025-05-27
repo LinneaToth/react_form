@@ -33,7 +33,6 @@ export default function LoanForm() {
     const storedValues = localStorage.getItem("loanForm");
     if (storedValues) {
       setFormValues({ ...JSON.parse(storedValues) });
-      console.log(storedValues);
     }
   }, []);
 
