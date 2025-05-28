@@ -1,3 +1,5 @@
+//This component deals with submitting the form. It communicates using a bootstrap component called Modal. Logic decides what is shown, depending on validation and with successful submission with a simulated delay
+
 import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -15,6 +17,7 @@ export default function Submit({ formValues, setFormValues, defaultForm }) {
   const [isValid, setIsValid] = useState(false);
   const [validationErrors, setValidationErrors] = useState([]);
 
+  //Tests the input against validation schema with YUP
   const validateForm = async () => {
     try {
       const result = await formSchema.validate(formValues, {
@@ -22,7 +25,6 @@ export default function Submit({ formValues, setFormValues, defaultForm }) {
       });
       return result;
     } catch (e) {
-      console.log(e.errors);
       return e.errors;
     }
   };
@@ -30,8 +32,9 @@ export default function Submit({ formValues, setFormValues, defaultForm }) {
   const handleSubmitBtn = async function () {
     setShow(true);
     const result = await validateForm();
-    const hasErrors = Array.isArray(result);
+    const hasErrors = Array.isArray(result); //The result is only presented as an array if errors are detected
 
+    //Send if ok, list errors if not
     if (!hasErrors) {
       handleSubmit();
       setIsValid(true);
@@ -87,7 +90,8 @@ export default function Submit({ formValues, setFormValues, defaultForm }) {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            variant="secondary"
+            disabled={isLoading}
+            variant="primary"
             onClick={() => {
               setShow(false);
               setIsLoading(true);

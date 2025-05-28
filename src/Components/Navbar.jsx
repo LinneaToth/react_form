@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <header className="navbar navbar-dark bg-dark ps-1">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <div className="navbar-brand">
           <img
             src={logo}
             alt=""
@@ -15,7 +15,7 @@ export default function Navbar() {
           <h1 className="d-inline-block align-text-center display-3">
             Buck Banking - Dreams come true
           </h1>
-        </a>
+        </div>
       </div>
     </header>
   );

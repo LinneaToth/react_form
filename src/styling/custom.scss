@@ -1,14 +1,5 @@
 /* custom.scss */
 
-// $primary: #ffc600 !default;
-// $secondary: #d33a3c !default;
-// $success: #3ad355 !default;
-// $info: #485f7e !default;
-// $warning: #d33a3a !default;
-// $danger: green !default;
-// $light: #a7aeae !default;
-// $dark: #1b2430 !default;
-
 $primary: #20758b;
 $secondary: #20758b;
 $success: #06d6a0;
@@ -37,10 +28,10 @@ $position-values: (
   90: 90%,
   100: 100%,
 );
-/* import the necessary Bootstrap files */
+/* import Bootstrap files */
 @import "bootstrap";
 
-/* skriv vanlig css vid behov undertill */
+/* addition of regular css below */
 
 body {
   height: 100%;
