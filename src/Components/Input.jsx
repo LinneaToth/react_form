@@ -13,6 +13,7 @@ export default function Input({
         {description}
       </label>
       <input
+        id={name}
         onBlur={handleBlur}
         onChange={(e) => {
           inputType === "checkbox"

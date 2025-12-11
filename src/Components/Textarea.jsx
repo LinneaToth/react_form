@@ -8,15 +8,15 @@ export default function Textarea({
 }) {
   return (
     <div className="form-group">
-      <label htmlFor={name}>{description}</label>
+      <label htmlFor={`id-${name}`}>{description}</label>
       <textarea
+        id={`id-${name}`}
         name={name}
         onBlur={handleBlur}
         onChange={(e) => {
           handleChange(name, e.target.value);
         }}
         value={formValues[name] ?? ""}
-        id=""
         className="form-control form-control-lg mt-2">
         placeholder = {placeholder}
       </textarea>
